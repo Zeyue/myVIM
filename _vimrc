@@ -10,20 +10,29 @@ Plugin 'gmarik/Vundle.vim'
 "Plugins
 Plugin 'bling/vim-airline' 
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'ervandew/supertab'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'vim-scripts/a.vim'
+Plugin 'Yggdroot/indentLine'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'Raimondi/delimitMate'
+Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'tpope/vim-surround'
 Plugin 'git://git.code.sf.net/p/vim-latex/vim-latex'
-Plugin 'blueprint.vim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'klen/python-mode'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-fugitive'
 
 call vundle#end()
 
 "set file autodetect
 filetype on
 "plugin load
-filetype plugin on
+filetype plugin indent on
 
 "----------Edit options----------
 "TAB config
@@ -48,7 +57,10 @@ set autoread
 "folder
 set foldmethod=syntax
 set nofoldenable
-
+"automatically change window's cwd to file's dir
+set autochdir
+"<F5> run python
+au BufRead *.py map<buffer> <F5> :w<CR>:!python -3 %<CR>
 "----------Control----------
 "set <Leader>
 let mapleader=";"
@@ -74,7 +86,7 @@ set cursorline
 "set backgournd sytle
 set background=dark
 "set colorscheme
-colorschem blueprint
+colorschem solarized
 "Remove left-hand scrollbar
 set guioptions-=l
 set guioptions-=L
@@ -104,11 +116,6 @@ map <Leader>ntf :NERDTreeFind<CR>
 let NERDTreeChDirMode=2
 "}
 
-"a{
-nmap <Leader>ch :A<CR>
-nmap <Leader>sch :AS<CR>
-"}
-
 "vim-latex{
 set shellslash
 set grepprg=grep\ -nH\ $*
@@ -120,9 +127,35 @@ let g:Tex_CompileRule_pdf='xelatex -synctex=1 -src-specials -interaction=nonstop
 "}
 
 " ultisnips{
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltisnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsExpandTrigger="<s-j>"
+let g:UltiSnipsJumpForwardTrigger="<s-j>"
 let g:UltiSnipsEditSplit="vertical"
 "}
 
+" YCM{
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+" }
+
+" python-mode{
+let g:pymode_python='python3'
+let g:pymode_rope=1
+let g:pymode_virtualenv=1
+let g:pymode_breakporit=1
+let g:pymode_breakporit_bind='<leader>b'
+let g:pymode_syntax=1
+let g:pymode_syntax_all=1
+let g:pymode_syntax_indent_errors=g:pymode_syntax_all
+let g:pymode_syntax_space_errors=g:pymode_syntax_all
+let g:pymode_folding=0
+" }
+
+" indentline{
+let g:indentLine_color_term=239
+let g:indentLine_color_gui='#A4E57E'
+let g:indentLine_color_tty_light=7
+let g:indentLine_color_dark=1
+let g:indentLine_char='|'
+let g:indentLine_enabled=1
+" }
